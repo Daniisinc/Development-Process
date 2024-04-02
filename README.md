@@ -1,2 +1,2 @@
-# Hangman-Game-Project
-This is a Hangman Game in python 
+# Development-Process Project
+This is an application in python consiating of HangMan, Dice Roll and Rock, Paper, Scissors.
