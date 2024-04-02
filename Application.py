@@ -212,7 +212,7 @@ def hangman():
 
 # Starting message
 while True:
-    user_choice = input("Hey and welcome to my game inventory!! Pick a game from 3 options. Type RPS for rock paper scissors, DICE for the dice roll game, and HANGMAN for the hangman game! If you want to stop, just type q to quit. Have Fun!!: ")
+    user_choice = input("Hey and welcome to our game inventory🎉!! Pick a game from 3 options. Type RPS for rock paper scissors, DICE for the dice roll game, and HANGMAN for the hangman game! If you want to stop, just type q to quit. Have Fun!!: ")
 
     if user_choice.lower() == "rps":
         rock_paper_scissors()
