@@ -1,3 +1,7 @@
+#Resorces
+#https://www.tutorialsteacher.com/python/statistics-module
+
+
 import random
 import statistics
 from hangman_stages import hangman_stages
