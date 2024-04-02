@@ -6,13 +6,13 @@ import random
 import statistics
 from hangman_stages import hangman_stages
 from word_list import word_list
-from dice import dice_art  # Assuming dice_art is imported correctly
+from dice import dice_art
 
-# Global variables to keep track of scores
+# Global variables to keep track of the scores
 user_total_score = 0
 game_count = 0
 
-# First game function Rock Paper Scissors
+# Rock Paper Scissors Game
 def rock_paper_scissors():
     global user_total_score
     global game_count
