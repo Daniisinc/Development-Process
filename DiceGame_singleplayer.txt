@@ -1,0 +1,75 @@
+# Dice Game
+# Source code1:https://realpython.com/python-dice-roll/
+# Source code2: https://www.pythonforbeginners.com/code-snippets-source-code/game-rolling-the-dice
+import random
+from statistics import mean, mode, StatisticsError
+from diceart import dice_art  # Ensure the diceart module is correctly set up
+
+
+class DiceGame:
+    def __init__(self):
+        self.winning_score = 30  # Target score for the user to win
+        self.tries = 5  # Maximum rolls allowed
+        self.all_time_rolls = []  # Stores rolls from all games for statistics
+        self.current_rolls = []  # Tracks rolls within the current game
+        self.current_score = 0  # Initializes current score to track it in real-time
+
+    def roll_dice(self):
+        """Generates a random roll, updates game history, adds to the current score, and prints the dice face."""
+        roll_result = random.randint(1, 6)  # Generates a random roll between 1 and 6
+        self.all_time_rolls.append(roll_result)  # Tracks roll in all-time history
+        self.current_rolls.append(roll_result)  # Tracks roll in the current game
+        self.current_score += roll_result  # Updates the current score directly
+
+        # Retrieve ASCII art for the roll and print it
+        dice_face = dice_art[roll_result]  # Ensure the dice value is valid
+        for row in dice_face:
+            print(row)  # Print each row of the dice ASCII art
+        print()  # Print a separator for visual clarity between rolls
+
+        return roll_result
+
+    def reset_game(self):
+        """Resets the current game's roll history and score for a new game session."""
+        self.current_rolls = []  # Clear the list of rolls for the new game
+        self.current_score = 0  # Reset the current score for the new game
+
+    def play(self):
+        """Conducts a single game session, rolling the dice up to the maximum roll limit."""
+        self.reset_game()  # Prepare for a new game
+        print('\nWelcome to Dice Game 🎲')
+        print('-------------------------------------')
+        print(f"Try to reach or exceed {self.winning_score} in {self.tries} rolls.\n")
+
+        for current_roll in range(self.tries):
+            input("Press Enter to roll the dice...")
+            self.roll_dice()
+            print(f"Current score: {self.current_score}")
+            print(f"Tries left: {self.tries - current_roll - 1}\n")
+            if self.current_score >= self.winning_score:
+                print("🎉 Congrats! You've won!")
+                break
+        else:
+            print("\nYou didn't reach the score. Try again!")
+        print("******************Game Over*****************")
+        self.print_statistics()  # Show statistics immediately after each game
+
+    def print_statistics(self):
+        """Prints statistics across all played games, updating after each game."""
+        if self.all_time_rolls:
+            try:
+                print(f"Most frequent roll: {mode(self.all_time_rolls)}")
+            except StatisticsError:
+                print("No single most frequent roll.")  # Handles case with no clear mode
+            print(f"Highest roll: {max(self.all_time_rolls)}")  # Highest roll in all games
+            print(
+                f"Average score per roll: {mean(self.all_time_rolls):.2f}")  # Average score per roll, updated after every game
+
+
+if __name__ == "__main__":
+    game = DiceGame()
+    game.play()
+    while input("Want to play again? (y/n): ").lower() == 'y':
+        game.play()
+    # Moved the print_statistics call into the play method so it's called immediately after each game ends
+    print("Thanks for playing! 🎲")

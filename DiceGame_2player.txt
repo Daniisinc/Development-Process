@@ -1,0 +1,95 @@
+git pull origin mai
+#Dice Game 2 Player
+# Reference Code 1: https://codereview.stackexchange.com/questions/205440/2-player-dice-game
+# Reference Code: https://www.includehelp.com/python/program-for-rolling-the-dice-2-player-dice-game.aspx#google_vignette
+import random
+import statistics
+from diceart import dice_art
+
+class Player:
+    def __init__(self, name):
+        self.name = name
+        self.scores = []  # List to store scores of each game
+        self.dice_rolls = []  # List to store every dice roll across all games
+        self.current_score = 0  # Current score for the ongoing game
+        self.tries = 5  # Initial number of tries for each game
+
+    def roll_dice(self):
+        """Simulate rolling a dice, update current score, and display dice ASCII art."""
+        dice_value = random.randint(1, 6)
+        self.current_score += dice_value
+        self.dice_rolls.append(dice_value)
+
+        # Display ASCII art for the rolled dice
+        print("\n" + "\n".join(dice_art[dice_value]))
+        print(f"{self.name} rolled a {dice_value}!")
+
+    def reset_for_new_game(self):
+        """Prepare the player for a new game by resetting the score and decreasing tries."""
+        self.scores.append(self.current_score)  # Save the score of the current game
+        self.current_score = 0  # Reset current score for the next game
+
+
+def play_game(players):
+    """Control the flow of the game, including player turns and scoring."""
+    for player in players:
+        player.current_score = 0
+        player.tries = 5
+
+    print('\n*** New Game Started ***\n')
+    while any(player.tries > 0 for player in players):
+        for player in players:
+            if player.tries > 0:
+                input(f"{player.name}, press Enter to roll the dice...")
+                player.roll_dice()
+                player.tries -= 1
+                print(f"Current score: {player.current_score}\nTries left: {player.tries}\n")
+    print('\n************* Game Over *************\n')
+
+
+def show_winner(players):
+    """Determine and display the winner of the game."""
+    highest_score = max(player.current_score for player in players)
+    winners = [player.name for player in players if player.current_score == highest_score]
+
+    if len(winners) > 1:
+        print(f"It's a draw between {' and '.join(winners)}!")
+    else:
+        print(f"Congratulations, {winners[0]} has won the game!")
+
+
+def show_statistics(players):
+    """Calculate and display statistics from all games played."""
+    all_rolls = sum([player.dice_rolls for player in players], [])
+    try:
+        average_score = statistics.mean(all_rolls)
+        most_frequent_die = statistics.mode(all_rolls)
+    except statistics.StatisticsError:
+        most_frequent_die = 'Multiple'
+    print("=======================================")
+    print(f"Average Dice Score: {average_score:.2f}")
+    if most_frequent_die == 'Multiple':
+        print("Most Frequent Die Rolled: Multiple ties")
+    else:
+        print(f"Most Frequent Die Rolled: {most_frequent_die}")
+
+
+
+
+if __name__ == "__main__":
+    """Main function to initiate and control the game."""
+    print('Welcome to the Dice Game. Each player has 5 tries.\n')
+    # Explicitly handling exactly two players
+    player1_name = input('Enter the 1st player name: ')
+    player2_name = input('Enter the 2nd player name: ')
+    players = [Player(player1_name), Player(player2_name)]
+    print('{} -> 1st Player\n{} -> 2nd Player'.format(player1_name, player2_name))
+
+    play_game(players)
+    show_winner(players)
+    show_statistics(players)
+
+    while input('\nDo you want to play another game? (y/n): '):
+        play_game(players)
+        show_winner(players)
+        show_statistics(players)

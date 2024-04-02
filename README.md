@@ -1,2 +1,2 @@
-Application:
-This is a Python application that has 3 games. The games are Dice Roll, Hangman and Rock Paper, Scissors.
+# Hangman-Game-Project
+This is a Hangman Game in python 
