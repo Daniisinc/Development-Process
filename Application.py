@@ -1,7 +1,8 @@
-#Resorces
+#Resources
 #https://www.tutorialsteacher.com/python/statistics-module
-
-
+#https://www.pythonforbeginners.com/code-snippets-source-code/game-rolling-the-dice
+#https://realpython.com/python-dice-roll/
+ 
 import random
 import statistics
 from hangman_stages import hangman_stages
