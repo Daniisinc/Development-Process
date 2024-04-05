@@ -1,5 +1,11 @@
 #Resources
 #https://www.tutorialsteacher.com/python/statistics-module
+#https://github.com/jameshope87/hangman
+#https://codereview.stackexchange.com/questions/273808/hangman-game-in-python-with-oop
+#https://www.pythonforbeginners.com/code-snippets-source-code/game-rolling-the-dice
+#https://realpython.com/python-dice-roll/
+#https://www.geeksforgeeks.org/python-program-implement-rock-paper-scissor-game/
+#https://thehelloworldprogram.com/python/python-game-rock-paper-scissors/
 
 
 import random
